@@ -1,18 +1,18 @@
-📽️ API de Filmes
-Esta API permite gerenciar filmes, armazenando informações como título, sinopse, ano de lançamento e gênero.
+<h1 align="center" style="font-weight: bold;">📽️ API de Filmes</h1>
+
+<p>Esta API permite gerenciar filmes, armazenando informações como título, sinopse, ano de lançamento e gênero.</p>
+
+<h1 >📌 Requisitos</h1>
+
+<p>Antes de instalar, certifique-se de ter os seguintes softwares instalados:</p>
+
+- Node.js (versão 16 ou superior)
+- Git (opcional, para clonar o repositório)
 
 
-
-📌 Requisitos
-Antes de instalar, certifique-se de ter os seguintes softwares instalados:
-
-Node.js (versão 16 ou superior)
-
-Git (opcional, para clonar o repositório)
-
-
-📥 Instalação
+<h1>📥 Instalação</h1>
 Clone este repositório (ou baixe o código):
+
 ```bash
 git clone git@github.com:coimbrajoao/Teste-Carefy-Backend.git
 cd Teste-Carefy-Backend
@@ -36,7 +36,7 @@ Isso instalará as seguintes dependências:
 - sqlite3 (^5.1.7) - Banco de dados local
 - uuid (^11.0.5) - Para geração de identificadores únicos
 
-1️⃣ Configurar Variáveis de Ambiente
+<h1>1️⃣ Configurar Variáveis de Ambiente</h1>
 
 Crie um arquivo .env na raiz do projeto e adicione:
 ```bash
@@ -45,7 +45,7 @@ TMDB_BEARER_TOKEN=SEU_TOKEN
 ```
 ⚠️ Substitua os valores acima pelos seus dados da API do TMDb
 
-2️⃣ Iniciar o Servidor
+<h1>2️⃣ Iniciar o Servidor</h1>
 
 Execute o seguinte comando no terminal:
 ```bash
@@ -59,7 +59,7 @@ Se estiver usando nodemon (caso tenha instalado):
 ```bash
 npx nodemon src/app.js
 ```
-🛠️ Rotas Disponíveis
+<h1>🛠️ Rotas Disponíveis</h1>
 
 |Método                     |Descrição
 |----------|------------------------------------------------
@@ -198,14 +198,10 @@ npx nodemon src/app.js
 }
 ```
 
-📚 Tecnologias Utilizadas
+<h1>📚 Tecnologias Utilizadas</h1>
 
-Node.js - Ambiente de execução
-
-Express.js - Framework para APIs
-
-SQLite - Banco de dados local
-
-Axios - Para chamadas à API do TMDb
-
-dotenv - Para gerenciar variáveis de ambiente
+- Node.js - Ambiente de execução
+- Express.js - Framework para APIs
+- SQLite - Banco de dados local
+- Axios - Para chamadas à API do TMDb
+- dotenv - Para gerenciar variáveis de ambiente
