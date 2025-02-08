@@ -20,7 +20,7 @@ cd Teste-Carefy-Backend
 
 Instale as dependências do projeto:
 ```bash
-npm install axios body-parser dotenv express sqlite3 uiid http debug pino pino-multi-stream  pino-pretty
+npm install axios body-parser dotenv express sqlite3 uiid http debug pino pino-multi-stream  pino-pretty swagger-jsdoc swagger-ui-express
 ```
 Isso instalará as seguintes dependências:
 
@@ -35,6 +35,8 @@ Isso instalará as seguintes dependências:
 - pino-pretty (^13.0.0) - Formatação de logs
 - sqlite3 (^5.1.7) - Banco de dados local
 - uuid (^11.0.5) - Para geração de identificadores únicos
+- swagger-jsdoc(^6.2.8) - Para documentar o Swagger
+- swagger-ui-express(^5.0.1) - Para trazer a interface do Swagger
 
 <h1>1️⃣ Configurar Variáveis de Ambiente</h1>
 
@@ -60,6 +62,8 @@ Se estiver usando nodemon (caso tenha instalado):
 npx nodemon src/app.js
 ```
 <h1>🛠️ Rotas Disponíveis</h1>
+
+Vale destacar que será necessário realizar a autorização com o usuario: Admin senha: Admin
 
 |Método                     |Descrição
 |----------|------------------------------------------------

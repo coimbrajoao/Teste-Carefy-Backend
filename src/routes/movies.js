@@ -9,6 +9,7 @@ router.post('/', authService, controller.post);
 router.post('/:id/avaliation', authService, controller.postAvaliation);
 
 router.put('/:id/status', authService, controller.put);
+
 router.get('/', authService, controller.getAll);
 
 router.get('/:id',authService, controller.getById);  

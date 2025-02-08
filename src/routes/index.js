@@ -2,11 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
+const controller = require('../controllers/logController');
+const authService = require('../middlewares/authMiddleware');
 
-router.get('/', (req, res, next) => {
-    res.status(200).send({
-        message: 'Hello World!'
-    });
-});
+router.get('/', authService, controller.searchLogs);
 
-module.exports = router;  // Aqui estava o erro
+module.exports = router;

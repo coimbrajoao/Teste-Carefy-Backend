@@ -1,0 +1,407 @@
+openapi: 3.0.0
+info:
+  title: "🎥 API de Filmes"
+  version: "1.0.0"
+  description: "Documentação da API de Filmes"
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor Local
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: "Autenticação via basic auth. Informe o usuário e senha para acessar a API."
+  schemas:
+    Movie:
+      type: object
+      description: "Representa um filme armazenado no sistema"
+      properties:
+        id:
+          type: integer
+          description: "Identificador único do filme"
+          example: 3
+        title:
+          type: string
+          description: "Título do filme"
+          example: "Interstellar"
+        synopsis:
+          type: string
+          description: "Sinopse do filme"
+          example: "The adventures of a group of explorers..."
+        release_year:
+          type: string
+          format: date
+          description: "Ano de lançamento do filme (formato YYYY-MM-DD)"
+          example: "2014-11-05"
+        genre:
+          type: string
+          description: "Gênero do filme"
+          example: "Adventure"
+        status:
+          type: string
+          description: "Status do filme (ex: A assistir, Assistido, Recomendado, Não recomendado)"
+          example: "Recomendado"
+        avaliation:
+          type: integer
+          description: "Nota do filme (de 0 a 5)"
+          example: 5
+
+security:
+  - BasicAuth: []
+
+paths:
+  /movies:
+    get:
+      summary: "Lista todos os filmes"
+      description: "Lista todos os filmes com paginação"
+      tags:
+        - "Movies"
+      security:
+        - BasicAuth: []
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          description: "Filtro para buscar filmes pelo título"
+          schema:
+            type: string
+            enum: ["A assistir", "Assistido", "Avaliado", "Recomendado", "Não recomendado"]
+      responses:
+        "200":
+          description: "Lista de filmes retornada com sucesso"
+          content:
+            application/json:
+               examples:
+                sem_filtro:
+                  summary: "Resposta sem filtro"
+                  value:
+                    currentPage: 1
+                    totalPage: 1
+                    totalMovies: 4
+                    data:
+                      - id: 1
+                        title: "Interstellar"
+                        status: "Recomendado"
+                      - id: 2
+                        title: "Oppenheimer"
+                        status: "Assistido"
+                com_filtro:
+                  summary: "Resposta filtrando por status 'Recomendado'"
+                  value:
+                    currentPage: 1
+                    totalPage: 1
+                    totalMovies: 1
+                    data:
+                      - id: 1
+                        title: "Interstellar"
+                        status: "Recomendado"
+        "500":
+          description: "Erro interno do servidor"
+          content:
+            application/json:
+              example:
+                message: "Erro interno do servidor"
+    post:
+      summary: "Adiciona um novo filme"
+      description: "Adiciona um novo filme com base no Titulo do filme"
+      tags:
+        - "Movies"
+      security:
+        - BasicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              title: "Interstellar"
+      responses:
+        "201":
+          description: "Filme criado com sucesso"
+          content:
+            application/json:
+              example:
+                message: "Filme criado com sucesso"
+                movie:
+                  id: 5
+                  title: "Interstellar"
+                  synopsis: "The adventures of a group of explorers..."
+                  release_year: "2014-11-05"
+                  genre: "Adventure"
+                  status: "A assistir"
+                  avaliation: 0
+        "400":
+          description: "Titulo não informado"
+          content:
+            application/json:
+              example:
+                message: "Titulo é obrigatório"         
+        "401":
+            description: "Usuario não autorizado"
+            content:
+              application/json:
+                example:
+                  message: "Usuário não autorizado"
+        "500":
+            description: "Erro interno do servidor"
+            content:
+              application/json:
+                example:
+                  message: "Erro interno do servidor"
+
+
+  /movies/{id}:
+    get:
+      summary: "Busca um filme pelo ID"
+      description: "Busca um filme pelo ID"
+      tags:
+        - "Movies"
+      security:
+        - BasicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do filme a ser buscado"
+          schema:
+            type: integer
+            example: 3
+      responses:
+        "200":
+          description: "Detalhes do filme"
+          content:
+            application/json:
+              example:
+                id: 3
+                title: "Interstellar"
+                synopsis: "The adventures of a group of explorers..."
+                release_year: "2014-11-05"
+                genre: "Adventure"
+                status: "Recomendado"
+                avaliation: 5
+        "400":
+          description: "ID inválido"
+          content:
+            application/json:
+              example:
+                message: "ID inválido"
+        "404":
+          description: "Filme não encontrado"
+          content:
+            application/json:
+              example:
+                message: "Filme não encontrado"
+        "500":
+          description: "Erro interno do servidor"
+          content:
+            application/json:
+              example:
+                message: "Erro ao buscar filme"
+                
+
+  /movies/{id}/history:
+    get:
+      summary: "Obtém o histórico de ações de um filme"
+      description: "Obtém o histórico de ações de um filme"
+      tags:
+        - "Movies"
+      security:
+        - BasicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do filme que será utilizado para buscar o history"
+          schema:
+            type: integer
+            example: 3
+      responses:
+        "200":
+          description: "Histórico de ações do filme"
+          content:
+            application/json:
+              example:
+                currentPage: 1
+                totalPage: 1
+                totalMovie: 4
+                data:
+                  - id: 8
+                    movie_id: 3
+                    action: "Criado"
+                    details: "A assistir"
+                    user: "admin"
+                    timestamp: "2025-02-08 04:01:20"
+        "400":
+          description: "iD inválido"
+          content:
+            application/json:
+              example:
+                message: "ID inválido"
+        "404":
+          description: "Histórico não encontrado"
+          content:
+            application/json:
+              example:
+                message: "Histórico não encontrado"
+
+  /movies/{id}/status:
+    put:
+      summary: "Atualiza o status de um filme"
+      description: "Atualiza o status de um filme com base nos seguintes status: 'A assistir', 'Assistido', 'Recomendado' e 'Não recomendado'"
+      tags:
+        - "Movies"
+      security:
+        - BasicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do filme que tera o status alterado"
+          schema:
+            type: integer
+            example: 3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              status: "Recomendado"
+      responses:
+        "200":
+          description: "Status atualizado com sucesso"
+          content:
+            application/json:
+              example:
+                message: "Status atualizado com sucesso"
+                updatedMovie:
+                  id: "3"
+                  status: "Recomendado"
+        "400":
+          description: "Requisição inválida"
+          content:
+            application/json:
+              examples:
+                status_nao_informado:
+                  summary: "Status não informado"
+                  value:
+                    message: "Status é obrigatório"
+                id_invalido:
+                  summary: "ID inválido"
+                  value:
+                    message: "ID inválido"
+                status_invalido:
+                  summary: "Filme precisa ser avaliado antes de ser recomendado/não recomendado"
+                  value:
+                    message: "Filme precisa ser avaliado antes de ser recomendado/não recomendado"
+        "404":
+          description: "Filme não encontrado"
+          content:
+            application/json:
+              example:
+                message: "Filme não encontrado"     
+        "401":
+            description: "Usuario não autorizado"
+            content:
+              application/json:
+                example:
+                  message: "Usuário não autorizado"
+        "500":
+            description: "Erro interno do servidor"
+            content:
+              application/json:
+                example:
+                  message: "Erro interno do servidor"
+
+  /movies/{id}/avaliation:
+    post:
+      summary: "Avalia um filme"
+      description: "Avalia um filme com base em uma nota de 0 a 5"
+      tags:
+        - "Movies"
+      security:
+        - BasicAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID do filme a ser avaliado"
+          schema:
+            type: integer
+            example: 3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              avaliation: 5
+      responses:
+        "201":
+          description: "Filme avaliado com sucesso"
+          content:
+            application/json:
+              example:
+                message: "Filme avaliado com sucesso"
+                updatedMovie:
+                  id: "3"
+                  avaliation: 5
+        "400":
+          description: "Avaliação é obrigatória"
+          content:
+            application/json:
+              example:
+              examples:
+                avaliation_not_informed:
+                  summary: "Avaliação é obrigatória"
+                  value:
+                    message: "Avaliação é obrigatória"
+                avaliation_number:
+                  summary: "Avaliação deve ser um número entre 0 e 5"
+                  value:
+                    message: "Avaliação deve ser um número entre 0 e 5"
+        "401":
+          description: "Usuario não autorizado"
+          content:
+           application/json:
+             example:
+              message: "Usuário não autorizado"
+        "500":
+          description: "Erro interno do servidor"
+          content:
+            application/json:
+              example:
+                message: "Erro interno do servidor"
+
+/logs:
+    get:
+      summary: "Busca logs"
+      description: "Busca logs"
+      tags:
+        - "Logs"
+      security:
+        - BasicAuth: []
+      responses:
+        "200":
+          description: "Logs encontrados com sucesso"
+          content:
+            application/json:
+              example:
+                curretPage: 1
+                totalPage: 1
+                totalLogs: 3
+                data:
+                  - id: 1
+                    method: GET
+                    url: /movies
+                    status: 200
+                    user: admin
+                    timestamp: 2022-02-08 04:01:20
+                    duration: 1000
+                  - id: 2
+                    method: GET
+                    url: /movies/1
+                    status: 200 
+                    user: admin
+                    timestamp: 2022-02-08 04:01:20
+                    duration: 1000  

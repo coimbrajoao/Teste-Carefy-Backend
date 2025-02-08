@@ -1,9 +1,17 @@
 const db = require('../../DataBase/dbContext');
 
 class movieRepository{
-     async getAll(){
+     async getAll(status){
         return new Promise((resolve, reject) => {
-            db.all('SELECT * FROM movies', (err, rows) => {
+            let query = 'SELECT * FROM movies';
+            const params = [];
+            if (status) {
+                query += ' WHERE status = ?';
+                params.push(status);
+            }
+
+
+            db.all(query, params, (err, rows) => {
                 if (err) {
                     reject(err);
                 }

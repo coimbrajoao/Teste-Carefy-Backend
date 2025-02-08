@@ -1,7 +1,8 @@
 const movieRepository = require('../repositories/movieRepository');
+const logRepository = require('../repositories/logRepository');
 
-async function searchMoviesAll() {
-    return await movieRepository.getAll();
+async function searchMoviesAll(status) {
+    return await movieRepository.getAll(status);
 }
 
 async function searchMoviesById(id) {
@@ -12,4 +13,8 @@ async function searchMovieHistory(id) {
     return await movieRepository.getAllHistory(id);
 }
 
-module.exports = { searchMoviesAll, searchMoviesById, searchMovieHistory };
+async function searchLogs() {
+    return await logRepository.getAll();
+}
+
+module.exports = { searchMoviesAll, searchMoviesById, searchMovieHistory, searchLogs };
