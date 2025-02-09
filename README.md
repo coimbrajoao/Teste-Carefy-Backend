@@ -38,6 +38,10 @@ Isso instalará as seguintes dependências:
 - swagger-jsdoc(^6.2.8) - Para documentar o Swagger
 - swagger-ui-express(^5.0.1) - Para trazer a interface do Swagger
 
+Depedencias para fazer os tests:
+- jest (^29.7.0) - Framework de testes para JavaScript
+- supertest (^7.0.0) - Biblioteca que facilita o teste de APIs Node.js
+
 <h1>1️⃣ Configurar Variáveis de Ambiente</h1>
 
 Crie um arquivo .env na raiz do projeto e adicione:
