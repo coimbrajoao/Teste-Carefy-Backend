@@ -41,7 +41,7 @@ const options = {
             }
         ],
     },
-    apis: ["src/docs/*.yaml"], // Agora lê o YAML
+    apis: ["src/docs/*.yaml"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

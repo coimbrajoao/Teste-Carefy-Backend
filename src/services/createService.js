@@ -10,7 +10,7 @@ const apiHeaders = {
 };
 
 async function searhcMovie(title) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${title}`;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${title}&language=pt-BR`;
       const response = await axios.get(url, { headers: apiHeaders });
 
     if(!response.data.results || response.data.results.length === 0) {

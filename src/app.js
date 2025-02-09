@@ -9,7 +9,7 @@ const router = express.Router();
 app.use(logger);
 setupSwagger(app);
 const index = require('./routes/index');
-const filmes = require('./routes/movies'); // Certifique-se de que este arquivo existe
+const filmes = require('./routes/movies'); 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

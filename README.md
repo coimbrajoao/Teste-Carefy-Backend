@@ -47,20 +47,21 @@ TMDB_BEARER_TOKEN=SEU_TOKEN
 ```
 ⚠️ Substitua os valores acima pelos seus dados da API do TMDb
 
+<h3>Executando testes na aplicação</h3>
+
+```bash
+npm run test -- --coverage
+```
+
 <h1>2️⃣ Iniciar o Servidor</h1>
 
 Execute o seguinte comando no terminal:
+
 ```bash
-npm start
+node .\bin\server.js
 ```
-ou
-```bash
-node src/app.js
-```
-Se estiver usando nodemon (caso tenha instalado):
-```bash
-npx nodemon src/app.js
-```
+Após iniciar será possivel acessar o SWAGGER pela rota localhost:8080/api-docs ou pela porta a qual voce executou.
+
 <h1>🛠️ Rotas Disponíveis</h1>
 
 Vale destacar que será necessário realizar a autorização com o usuario: Admin senha: Admin
@@ -73,6 +74,7 @@ Vale destacar que será necessário realizar a autorização com o usuario: Admi
 |GET/movies                    | Lista todos os filmes
 |GET/movies/:id                |Obtém detalhes de um filme
 |GET/movies/:id/history        |Histórico de mudanças
+|Get/logs                       | Retorna historioco de logs
 
 <h3>POST /movies</h3>
 
@@ -201,6 +203,29 @@ Vale destacar que será necessário realizar a autorização com o usuario: Admi
     ]
 }
 ```
+<h3>GET /logs</h3>
+
+**RESPONSE**
+```json
+{
+  "curretPage": 1,
+  "totalPage": 1,
+  "totalLogs": 3,
+  "data": [
+    {
+      "id": 1,
+      "method": "GET",
+      "url": "/movies",
+      "status": 200,
+      "user": "admin",
+      "timestamp": "2022-02-08 04:01:20",
+      "duration": 1000
+    }
+  ]
+}
+```
+
+
 
 <h1>📚 Tecnologias Utilizadas</h1>
 

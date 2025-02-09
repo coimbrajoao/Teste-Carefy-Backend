@@ -69,12 +69,12 @@ class movieRepository{
             db.run(
                 'INSERT INTO history (movie_id, action, details, user) VALUES (?, ?, ?, ?)',
                 [id, String(acao), String(status), String(user)],
-                function (err) { // 🔹 function normal para acessar `this.lastID`
+                function (err) { 
                     if (err) {
                         return reject(err);
                     }
     
-                    resolve({ id: this.lastID }); // 🔹 Captura corretamente o ID inserido
+                    resolve({ id: this.lastID });
                 }
             );
         });
