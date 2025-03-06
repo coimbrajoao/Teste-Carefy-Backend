@@ -74,7 +74,7 @@ Vale destacar que será necessário realizar a autorização com o usuario: Admi
 |----------|------------------------------------------------
 |POST/movies                    |Adiciona um filme pelo nome
 |POST/movies/:id/avaliation     |Avalia um filme
-|PUT/movies/:id                |Atualiza o status de um filme
+|PUT/movies/:id/status          |Atualiza o status de um filme
 |GET/movies                    | Lista todos os filmes
 |GET/movies/:id                |Obtém detalhes de um filme
 |GET/movies/:id/history        |Histórico de mudanças
@@ -128,7 +128,7 @@ Vale destacar que será necessário realizar a autorização com o usuario: Admi
 }
 ```
 
-<h3>PUT /movies/:id</h3>
+<h3>PUT /movies/:id/status</h3>
 
 **REQUEST**
 ```json
